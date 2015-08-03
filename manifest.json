@@ -1,1 +1,50 @@
-hehehhe
+{
+  // Required
+  "manifest_version": 2,
+  "name": "Quickify: Spotify Web Player Shortcuts",
+  "version": "0.1",
+
+  // Recommended
+  "default_locale": "en",
+  "description": "Provides a quick way of interacting with the Spotify Web Player without losing context of your current webpage.",
+  "icons": {},
+
+  // Pick one (or none)
+  "browser_action": {
+    "default_icon": {                    // optional
+      "19": "images/icon19.png",           // optional
+      "38": "images/icon38.png"            // optional
+    },
+    "default_title": "Quickify",      // optional; shown in tooltip
+    "default_popup": "popup.html"        // optional
+  },
+
+  // Optional
+  "author": "Diego Accame",
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
+  },
+  "commands": {
+    "play-pause": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+P",
+        "mac": "Command+Shift+P"
+      },
+      "description": "Play/Pause current song"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://play.spotify.com/*"],
+      "js": ["quickify_content.js"]
+    }
+  ],
+  "externally_connectable": {
+    "matches": ["*://*.example.com/*"]
+  },
+  "permissions": [
+    "tabs",
+    "https://play.spotify.com/"
+  ]
+}
