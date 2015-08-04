@@ -7,13 +7,17 @@
   // Recommended
   "default_locale": "en",
   "description": "Provides a quick way of interacting with the Spotify Web Player without losing context of your current webpage.",
-  "icons": {},
+  "icons": {
+    "19": "icons/quickify_19.png",
+    "38": "icons/quickify_38.png",
+    "128": "icons/quickify_128.png"
+  },
 
   // Pick one (or none)
   "browser_action": {
-    "default_icon": {                    // optional
-      "19": "images/icon19.png",           // optional
-      "38": "images/icon38.png"            // optional
+    "default_icon": {
+      "19": "icons/quickify_19.png",
+      "38": "icons/quickify_38.png"
     },
     "default_title": "Quickify",      // optional; shown in tooltip
     "default_popup": "popup.html"        // optional
