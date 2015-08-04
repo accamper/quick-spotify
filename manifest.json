@@ -5,7 +5,6 @@
   "version": "0.1",
 
   // Recommended
-  "default_locale": "en",
   "description": "Provides a quick way of interacting with the Spotify Web Player without losing context of your current webpage.",
   "icons": {
     "19": "icons/quickify_19.png",
