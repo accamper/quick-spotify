@@ -50,23 +50,31 @@ Quickify.log = function(msg) {
 };
 
 
+Quickify.getById = function(id) {
+  var appPlaya = document.getElementById('app-player');
+  var elt = appPlaya && appPlaya.contentDocument.getElementById(id);
+  if (!elt) {
+    Quickify.log('DID THEY CHANGE THE IDS???? SOMEONE TELL THE DEVELOPER!!!');
+  }
+  return elt; 
+};
+
+
 Quickify.playOrPause = function() {
   Quickify.log('play or pause');
+  Quickify.getById('play-pause').click();
 };
 
 
 Quickify.next = function() {
   Quickify.log('next');
+  Quickify.getById('next').click();
 };
 
 
 Quickify.previous = function() {
   Quickify.log('previous');
-};
-
-
-Quickify.mute = function() {
-  Quickify.log('mute');
+  Quickify.getById('previous').click();
 };
 
 
@@ -90,15 +98,11 @@ Quickify.init = function() {
           case QuickifyMessages.PREVIOUS:
             Quickify.previous();
             break;
-          case QuickifyMessages.MUTE:
-            Quickify.mute();
-            break;
           default:
             Quickify.log("I don't know how to handle this message: " + request);
             break;
         }
       });
-  Quickify.setIdle(false);  
 };
 
 Quickify.init();
