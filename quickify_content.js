@@ -30,6 +30,7 @@ Quickify.setIdle = function(idle) {
   }
 };
 
+
 Quickify.broadcast = function() {
   // Set idle if there has been 5min of inactivity with the popup.
   Quickify.age += Quickify.interval;
@@ -43,14 +44,61 @@ Quickify.broadcast = function() {
       function(response) {});
 };
 
-Quickify.init = function() {
-  // TODO
-  // Setup listeners for popup open and close.
-  // TODO
-  // Setup listeners for actions
-  Quickify.setIdle(false);  
+
+Quickify.log = function(msg) {
+  window.console.log('[Quickify] ' + msg);
 };
 
 
-  
+Quickify.playOrPause = function() {
+  Quickify.log('play or pause');
+};
+
+
+Quickify.next = function() {
+  Quickify.log('next');
+};
+
+
+Quickify.previous = function() {
+  Quickify.log('previous');
+};
+
+
+Quickify.mute = function() {
+  Quickify.log('mute');
+};
+
+
+Quickify.init = function() {
+  // Setup listeners.
+  chrome.runtime.onMessage.addListener(
+      function(request, sender, sendResponse) {
+        switch (request) {
+          case QuickifyMessages.POPUP_ON:
+            Quickify.setIdle(false);
+            break;
+          case QuickifyMessages.POPUP_OFF:
+            Quickify.setIdle(true);
+            break;
+          case QuickifyMessages.PLAY_OR_PAUSE:
+            Quickify.playOrPause();
+            break;
+          case QuickifyMessages.NEXT:
+            Quickify.next();
+            break;
+          case QuickifyMessages.PREVIOUS:
+            Quickify.previous();
+            break;
+          case QuickifyMessages.MUTE:
+            Quickify.mute();
+            break;
+          default:
+            Quickify.log("I don't know how to handle this message: " + request);
+            break;
+        }
+      });
+  Quickify.setIdle(false);  
+};
+
 Quickify.init();

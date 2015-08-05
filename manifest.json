@@ -27,7 +27,7 @@
   "author": "Diego Accame",
   "background": {
     "persistent": false,
-    "scripts": ["background.js"]
+    "scripts": ["messages.js", "background.js"]
   },
   "commands": {
     "play-pause": {
@@ -41,7 +41,7 @@
   "content_scripts": [
     {
       "matches": ["https://play.spotify.com/*"],
-      "js": ["quickify_content.js"]
+      "js": ["messages.js", "quickify_content.js"]
     }
   ],
   "externally_connectable": {
