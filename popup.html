@@ -4,12 +4,47 @@
     <script src="quickify_popup.js"></script>
     <style>
       body {
-        width: 200px;
+        width: 300px;
         height: 100px;
+        background-color: #1c1c1f;
+        color: #dfe0e6;
+        font-family: 'proxima_nova','Helvetica Neue',Helvetica,Arial,sans-serif;
+        font-size: 14px;
+      }
+      #logo {
+        position: fixed;
+        background-image: url('icons/quickify_38.png');
+        background-size: 20px 20px;
+        background-repeat: no-repeat;
+        width: 20px;
+        height: 20px;
+        top: 5px;
+        left: 5px;
+      }
+      #song {
+        text-align: center;
+        width: 100%;
+        font-size: 15px;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+      #artist {
+        text-align: center;
+        width: 100%;
+        font-size: 14px;
+        margin-bottom: 5px;
       }
     </style>
   </head>
   <body>
-    <div>QUICKIFY HUEHUEHUEHUE</div>
+    <div id="logo"></div>
+    <div id="song">Song name</div>
+    <div id="artist">Artist name</div>
+    <div id="progress">|--------------|</div>
+    <div id="controls">
+      <div id="prev">C</div>
+      <div id="playpause">||</div>
+      <div id="next">D</div>
+    </div>
   </body>
 </html>
