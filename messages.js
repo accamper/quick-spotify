@@ -2,6 +2,9 @@ var QuickifyMessages = {
   PLAY_OR_PAUSE: 'q play/pause',
   NEXT: 'q next',
   PREVIOUS: 'q prev',
+  SAVE: 'q save',
+  REPEAT: 'q repeat',
+  SHUFFLE: 'q shuffle',
   POPUP_ON: 'q popup on',
   POPUP_OFF: 'q popup off',
   STATUS: 'q status'

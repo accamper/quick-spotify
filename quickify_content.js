@@ -11,7 +11,7 @@ Quickify.broadcastInterval = undefined;
 Quickify.age = 0;
 
 // Interval time in ms.
-Quickify.interval = 1000;
+Quickify.interval = 500;
 
 
 Quickify.setIdle = function(idle) {
@@ -78,6 +78,24 @@ Quickify.previous = function() {
 };
 
 
+Quickify.save = function() {
+  Quickify.log('save');
+  Quickify.getById('track-add').click();
+};
+
+
+Quickify.repeat = function() {
+  Quickify.log('repeat');
+  Quickify.getById('repeat').click();
+};
+
+
+Quickify.shuffle  = function() {
+  Quickify.log('shuffle');
+  Quickify.getById('shuffle').click();
+};
+
+
 Quickify.init = function() {
   // Setup listeners.
   chrome.runtime.onMessage.addListener(
@@ -97,6 +115,15 @@ Quickify.init = function() {
             break;
           case QuickifyMessages.PREVIOUS:
             Quickify.previous();
+            break;
+          case QuickifyMessages.SAVE:
+            Quickify.save();
+            break;
+          case QuickifyMessages.REPEAT:
+            Quickify.repeat();
+            break;
+          case QuickifyMessages.SHUFFLE:
+            Quickify.shuffle();
             break;
           default:
             Quickify.log("I don't know how to handle this message: " + request);
