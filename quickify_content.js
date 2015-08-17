@@ -16,6 +16,7 @@ Quickify.interval = 500;
 
 Quickify.setIdle = function(idle) {
   if (idle == Quickify.isIdle) return;
+  Quickify.log('Set idle to ' + idle);
   Quickify.isIdle = idle;
   if (idle) {
     // Kill broadcasting.

@@ -48,4 +48,5 @@ QuickifyPopup.exit = function() {
 };
 
 window.onload = QuickifyPopup.init;
-window.onunload = QuickifyPopup.exit;
+// TODO: This isn't working, nbd but should figure it out eventually.
+window.onbeforeunload = QuickifyPopup.exit;
