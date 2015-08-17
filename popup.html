@@ -34,6 +34,77 @@
         font-size: 14px;
         margin-bottom: 5px;
       }
+      #controls {
+        position: relative;
+      }
+      #prev, #playpause, #next, #shuffle, #repeat, #add {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        width: 32px;
+        height: 32px;
+        opacity: 0.8;
+        cursor: pointer;
+        display: inline-block;
+        position: absolute;
+        top: 5px;
+      }
+      #prev:hover, #playpause:hover, #next:hover, #shuffle:hover,
+      #repeat:hover, #add:hover {
+        opacity: 1;
+      }
+      #prev {
+        background-image: url('icons/white-skip-to-start-48.png');
+        left: 94px;
+      }
+      #playpause {
+        background-size: 28px;
+        background-position-x: 6px;
+        border: 1px solid white;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        top: 2px;
+        left: 131px;
+      }
+      #playpause:hover {
+        border-color: #84bd00;
+      }
+      #playpause.play {
+        background-image: url('icons/white-play-48.png');
+      }
+      #playpause.pause {
+        background-image: url('icons/white-pause-48.png');
+      }
+      #next {
+        background-image: url('icons/white-end-48.png');
+        left: 174px;
+      }
+      #add {
+        background-image: url('icons/white-plus-2-48.png');
+        left: 0px;
+      }
+      #shuffle, #repeat {
+        background-size: 20px 20px;
+      }
+      #shuffle {
+        left: 243px;
+      }
+      #shuffle.off {
+        background-image: url('icons/white-shuffle-48.png');
+      }
+      #shuffle.on {
+        background-image: url('icons/84bd00-shuffle-48.png');
+      }
+      #repeat {
+        left: 270px;
+      }
+      #repeat.off {
+        background-image: url('icons/white-repeat-48.png');
+      }
+      #repeat.on {
+        background-image: url('icons/84bd00-repeat-48.png');
+      }
     </style>
   </head>
   <body>
@@ -42,9 +113,12 @@
     <div id="artist">Artist name</div>
     <div id="progress">|--------------|</div>
     <div id="controls">
-      <div id="prev">C</div>
-      <div id="playpause">||</div>
-      <div id="next">D</div>
+      <div id="prev"></div>
+      <div id="playpause" class="play"></div>
+      <div id="next"></div>
+      <div id="shuffle" class="off"></div>
+      <div id="repeat" class="off"></div>
+      <div id="add"></div>
     </div>
   </body>
 </html>
