@@ -58,6 +58,7 @@
         left: 94px;
       }
       #playpause {
+        background-image: url('icons/white-play-48.png');
         background-size: 28px;
         background-position-x: 6px;
         border: 1px solid white;
@@ -70,11 +71,9 @@
       #playpause:hover {
         border-color: #84bd00;
       }
-      #playpause.play {
-        background-image: url('icons/white-play-48.png');
-      }
       #playpause.pause {
         background-image: url('icons/white-pause-48.png');
+        background-position-x: 4px;
       }
       #next {
         background-image: url('icons/white-end-48.png');
@@ -89,8 +88,6 @@
       }
       #shuffle {
         left: 243px;
-      }
-      #shuffle.off {
         background-image: url('icons/white-shuffle-48.png');
       }
       #shuffle.on {
@@ -98,8 +95,6 @@
       }
       #repeat {
         left: 270px;
-      }
-      #repeat.off {
         background-image: url('icons/white-repeat-48.png');
       }
       #repeat.on {
@@ -114,10 +109,10 @@
     <div id="progress">|--------------|</div>
     <div id="controls">
       <div id="prev"></div>
-      <div id="playpause" class="play"></div>
+      <div id="playpause"></div>
       <div id="next"></div>
-      <div id="shuffle" class="off"></div>
-      <div id="repeat" class="off"></div>
+      <div id="shuffle"></div>
+      <div id="repeat"></div>
       <div id="add"></div>
     </div>
   </body>

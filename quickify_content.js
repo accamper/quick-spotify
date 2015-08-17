@@ -11,7 +11,7 @@ Quickify.broadcastInterval = undefined;
 Quickify.age = 0;
 
 // Interval time in ms.
-Quickify.interval = 500;
+Quickify.interval = 700;
 
 
 Quickify.setIdle = function(idle) {
@@ -39,10 +39,28 @@ Quickify.broadcast = function() {
     Quickify.setIdle(true);
     return;
   }
-  // TODO Actually send a relevant message with the current state. Eg. Chosen song, isPlaying.
-  chrome.runtime.sendMessage(
-      {ping: "pong " + Quickify.age},
-      function(response) {});
+  var statusMsg = {};
+  statusMsg.type = QuickifyMessages.STATUS;
+
+  var trackNameDiv = Quickify.getById('track-name');
+  var trackArtistDiv = Quickify.getById('track-artist');
+  var trackLengthDiv = Quickify.getById('track-length');
+  var trackCurrentDiv = Quickify.getById('track-current');
+  var trackAddDiv = Quickify.getById('track-add');
+  var playPauseDiv = Quickify.getById('play-pause');
+  var shuffleDiv = Quickify.getById('shuffle');
+  var repeatDiv = Quickify.getById('repeat');
+
+  statusMsg.song = trackNameDiv.textContent;
+  statusMsg.artist = trackArtistDiv.textContent;
+  statusMsg.songLength = trackLengthDiv.textContent;
+  statusMsg.currentTime = trackCurrentDiv.textContent;
+  statusMsg.isPlaying = playPauseDiv.classList.contains('playing');
+  statusMsg.isShuffled = shuffleDiv.classList.contains('active');
+  statusMsg.isRepeated = repeatDiv.classList.contains('active');
+  statusMsg.isSaved = repeatDiv.classList.contains('added');
+
+  chrome.runtime.sendMessage(statusMsg);
 };
 
 
@@ -107,7 +125,7 @@ Quickify.init = function() {
             break;
           case QuickifyMessages.POPUP_OFF:
             Quickify.setIdle(true);
-            break;
+            return;
           case QuickifyMessages.PLAY_OR_PAUSE:
             Quickify.playOrPause();
             break;
@@ -128,8 +146,9 @@ Quickify.init = function() {
             break;
           default:
             Quickify.log("I don't know how to handle this message: " + request);
-            break;
+            return;
         }
+        Quickify.broadcast();
       });
 };
 

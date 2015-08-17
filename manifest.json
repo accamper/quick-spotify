@@ -2,7 +2,7 @@
   // Required
   "manifest_version": 2,
   "name": "Quickify: Spotify Web Player Shortcuts",
-  "version": "0.1",
+  "version": "0.6",
 
   // Recommended
   "description": "Provides a quick way of interacting with the Spotify Web Player without losing context of your current webpage.",

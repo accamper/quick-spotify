@@ -1,6 +1,17 @@
 window.console.log('This is popping!');
 QuickifyPopup = {};
 
+QuickifyPopup.handleStatus = function(request, sender, sendResponse) {
+  if (request.type != QuickifyMessages.STATUS) return;
+  QuickifyPopup.song.textContent = request.song;
+  QuickifyPopup.artist.textContent = request.artist;
+  // TODO handle time updates.
+  QuickifyPopup.playpauseBtn.classList.toggle('pause', request.isPlaying);
+  QuickifyPopup.shuffleBtn.classList.toggle('on', request.isShuffled);
+  QuickifyPopup.repeatBtn.classList.toggle('on', request.isRepeated);
+  // TODO handle added status.
+};
+
 QuickifyPopup.init = function() {
   QuickifyPopup.song = document.getElementById('song');
   QuickifyPopup.artist = document.getElementById('artist');
@@ -32,12 +43,7 @@ QuickifyPopup.init = function() {
   });
 
   // Set up update listener.
-  chrome.runtime.onMessage.addListener(
-      function(request, sender, sendResponse) {
-        // TODO: Handle broadcast.
-        console.log(sender.tab ? "content" : "extension?");
-        console.log(request.ping);
-      });
+  chrome.runtime.onMessage.addListener(QuickifyPopup.handleStatus);
 
   // Notify content we have started.
   QuickifySendToContent(QuickifyMessages.POPUP_ON);
