@@ -16,8 +16,8 @@
       "19": "icons/quickify_19.png",
       "38": "icons/quickify_38.png"
     },
-    "default_title": "Quickify",      // optional; shown in tooltip
-    "default_popup": "popup.html"        // optional
+    "default_title": "Quickify",
+    "default_popup": "popup.html"
   },
 
   "author": "Diego Accame",
