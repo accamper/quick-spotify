@@ -31,11 +31,25 @@
   },
   "commands": {
     "play-pause": {
-      "suggested_key": {
-        "default": "Ctrl+Shift+P",
-        "mac": "Command+Shift+P"
-      },
+      "suggested_key": "MediaPlayPause",
       "description": "Play/Pause current song"
+    },
+    "next": {
+      "description": "Next track",
+      "suggested_key": "MediaNextTrack"
+    },
+    "previous": {
+      "description": "Previous track",
+      "suggested_key": "MediaPrevTrack"
+    },
+    "shuffle": {
+      "description": "Shuffle"
+    },
+    "repeat": {
+      "description": "Repeat"
+    },
+    "track-add": {
+      "description": "Save/Unsave track"
     }
   },
   "content_scripts": [
