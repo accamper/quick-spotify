@@ -5,7 +5,7 @@
     <style>
       body {
         width: 300px;
-        height: 100px;
+        height: 130px;
         background-color: #1c1c1f;
         color: #dfe0e6;
         font-family: 'proxima_nova','Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -32,7 +32,7 @@
         text-align: center;
         width: 100%;
         font-size: 14px;
-        margin-bottom: 5px;
+        margin-bottom: 20px;
       }
       #controls {
         position: relative;
@@ -81,24 +81,47 @@
       }
       #add {
         background-image: url('icons/white-plus-2-48.png');
-        left: 0px;
+        left: 5px;
       }
       #shuffle, #repeat {
         background-size: 20px 20px;
       }
       #shuffle {
-        left: 243px;
+        left: 238px;
         background-image: url('icons/white-shuffle-48.png');
       }
       #shuffle.on {
         background-image: url('icons/84bd00-shuffle-48.png');
       }
       #repeat {
-        left: 270px;
+        left: 265px;
         background-image: url('icons/white-repeat-48.png');
       }
       #repeat.on {
         background-image: url('icons/84bd00-repeat-48.png');
+      }
+
+      #line, #progress {
+        height: 4px;
+        background-color: #3e3e40;
+        border-radius: 3px;
+        margin: 10px;
+      }
+      #progress {
+        background-color: #84bd00;
+        margin: 0px;
+      }
+      #times {
+        font-size: 12px;
+        color: #88898c;
+        height: 14px;
+        margin: 4px 10px;
+      }
+      #current {
+        float: left;
+      }
+      #end {
+        float: right;
       }
     </style>
   </head>
@@ -106,7 +129,13 @@
     <div id="logo"></div>
     <div id="song">Song name</div>
     <div id="artist">Artist name</div>
-    <div id="progress">|--------------|</div>
+    <div id="line">
+      <div id="progress" style="width: 0px"></div>
+    </div>
+    <div id="times">
+      <div id="current"></div>
+      <div id="end"></div>
+    </div>
     <div id="controls">
       <div id="prev"></div>
       <div id="playpause"></div>

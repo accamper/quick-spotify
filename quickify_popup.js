@@ -5,12 +5,34 @@ QuickifyPopup.handleStatus = function(request, sender, sendResponse) {
   if (request.type != QuickifyMessages.STATUS) return;
   QuickifyPopup.song.textContent = request.song;
   QuickifyPopup.artist.textContent = request.artist;
-  // TODO handle time updates.
+  QuickifyPopup.setTime(request.currentTime, request.songLength);
   QuickifyPopup.playpauseBtn.classList.toggle('pause', request.isPlaying);
   QuickifyPopup.shuffleBtn.classList.toggle('on', request.isShuffled);
   QuickifyPopup.repeatBtn.classList.toggle('on', request.isRepeated);
   // TODO handle added status.
 };
+
+QuickifyPopup.setTime = function(currentTime, songLength) {
+  QuickifyPopup.currentTime.textContent = currentTime;
+  QuickifyPopup.songLength.textContent = songLength;
+  // Parse time to set progress accordingly.
+  var parseTime = function(time) {
+    var tArr = time.split(':');
+    var secs = 0;
+    var mult = 1;
+    for (var i = tArr.length - 1; i >=0; i--) {
+      secs += Number(tArr[i]) * mult;
+      mult *= 60;
+    }
+    return secs;
+  };
+  var fullWidth = 280;
+  var newWidth = (parseTime(currentTime) / parseTime(songLength)) * fullWidth;
+  QuickifyPopup.timeProgress.style.width = Math.round(newWidth) + 'px';
+  // TODO handle be able to drag/drop time.
+};
+
+
 
 QuickifyPopup.init = function() {
   QuickifyPopup.song = document.getElementById('song');
@@ -21,6 +43,9 @@ QuickifyPopup.init = function() {
   QuickifyPopup.addBtn = document.getElementById('add');
   QuickifyPopup.shuffleBtn = document.getElementById('shuffle');
   QuickifyPopup.repeatBtn = document.getElementById('repeat');
+  QuickifyPopup.currentTime = document.getElementById('current');
+  QuickifyPopup.timeProgress = document.getElementById('progress');
+  QuickifyPopup.songLength = document.getElementById('end');
   
   // Add listeners for buttons.
   QuickifyPopup.prevBtn.addEventListener('click', function() {
