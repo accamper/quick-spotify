@@ -46,6 +46,7 @@ QuickifyPopup.init = function() {
   QuickifyPopup.currentTime = document.getElementById('current');
   QuickifyPopup.timeProgress = document.getElementById('progress');
   QuickifyPopup.songLength = document.getElementById('end');
+  QuickifyPopup.openLinkBtn = document.getElementById('link');
   
   // Add listeners for buttons.
   QuickifyPopup.prevBtn.addEventListener('click', function() {
@@ -65,6 +66,14 @@ QuickifyPopup.init = function() {
   });
   QuickifyPopup.repeatBtn.addEventListener('click', function() {
     QuickifySendToContent(QuickifyMessages.REPEAT);
+  });
+  QuickifyPopup.openLinkBtn.addEventListener('click', function() {
+    chrome.tabs.query({url: QuickifyUrl},
+      function(tabs) {
+        if (tabs.length) {
+          chrome.tabs.update(tabs[0].id, {active: true});
+        }
+      });
   });
 
   // Set up update listener.

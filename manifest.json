@@ -1,10 +1,8 @@
 {
-  // Required
   "manifest_version": 2,
   "name": "Quickify: Spotify Web Player Shortcuts",
-  "version": "0.8",
+  "version": "1.0",
 
-  // Recommended
   "description": "Provides a quick way of interacting with the Spotify Web Player without losing context of your current webpage.",
   "icons": {
     "19": "icons/quickify_19.png",
@@ -13,7 +11,6 @@
     "128": "icons/quickify_128.png"
   },
 
-  // Pick one (or none)
   "browser_action": {
     "default_icon": {
       "19": "icons/quickify_19.png",
@@ -23,7 +20,6 @@
     "default_popup": "popup.html"        // optional
   },
 
-  // Optional
   "author": "Diego Accame",
   "background": {
     "persistent": false,
@@ -58,9 +54,6 @@
       "js": ["messages.js", "quickify_content.js"]
     }
   ],
-  "externally_connectable": {
-    "matches": ["*://*.example.com/*"]
-  },
   "permissions": [
     "tabs",
     "https://play.spotify.com/"

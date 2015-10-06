@@ -20,6 +20,21 @@
         top: 5px;
         left: 5px;
       }
+      #link {
+        position: fixed;
+        background-image: url('icons/white-ext-link.png');
+        background-size: 18px 18px;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        top: 5px;
+        right: 5px;
+        opacity: 0.6;
+      }
+      #link:hover {
+        opacity: 1;
+      }
       #song {
         text-align: center;
         font-size: 15px;
@@ -144,6 +159,7 @@
   </head>
   <body>
     <div id="logo"></div>
+    <div id="link"></div>
     <div id="song">Song name</div>
     <div id="artist">Artist name</div>
     <div id="line">
