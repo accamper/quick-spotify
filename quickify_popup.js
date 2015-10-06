@@ -9,7 +9,7 @@ QuickifyPopup.handleStatus = function(request, sender, sendResponse) {
   QuickifyPopup.playpauseBtn.classList.toggle('pause', request.isPlaying);
   QuickifyPopup.shuffleBtn.classList.toggle('on', request.isShuffled);
   QuickifyPopup.repeatBtn.classList.toggle('on', request.isRepeated);
-  // TODO handle added status.
+  QuickifyPopup.addBtn.classList.toggle('done', request.isSaved);
 };
 
 QuickifyPopup.setTime = function(currentTime, songLength) {

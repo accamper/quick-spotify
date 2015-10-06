@@ -11,7 +11,7 @@ Quickify.broadcastInterval = undefined;
 Quickify.age = 0;
 
 // Interval time in ms.
-Quickify.interval = 700;
+Quickify.interval = 400;
 
 
 Quickify.setIdle = function(idle) {
@@ -58,7 +58,7 @@ Quickify.broadcast = function() {
   statusMsg.isPlaying = playPauseDiv.classList.contains('playing');
   statusMsg.isShuffled = shuffleDiv.classList.contains('active');
   statusMsg.isRepeated = repeatDiv.classList.contains('active');
-  statusMsg.isSaved = repeatDiv.classList.contains('added');
+  statusMsg.isSaved = trackAddDiv.classList.contains('added');
 
   chrome.runtime.sendMessage(statusMsg);
 };
@@ -66,6 +66,10 @@ Quickify.broadcast = function() {
 
 Quickify.log = function(msg) {
   window.console.log('[Quickify] ' + msg);
+};
+
+Quickify.resetAge = function() {
+  Quickify.age = 0;
 };
 
 
@@ -148,6 +152,7 @@ Quickify.init = function() {
             Quickify.log("I don't know how to handle this message: " + request);
             return;
         }
+        Quickify.resetAge();
         Quickify.broadcast();
       });
 };

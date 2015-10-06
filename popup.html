@@ -5,7 +5,6 @@
     <style>
       body {
         width: 300px;
-        height: 130px;
         background-color: #1c1c1f;
         color: #dfe0e6;
         font-family: 'proxima_nova','Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -23,10 +22,12 @@
       }
       #song {
         text-align: center;
-        width: 100%;
         font-size: 15px;
         font-weight: 500;
+        margin: auto 10px;
         margin-bottom: 5px;
+        z-index: 1;
+        position: relative;
       }
       #artist {
         text-align: center;
@@ -36,6 +37,8 @@
       }
       #controls {
         position: relative;
+        height: 42px;
+        margin-bottom: 10px;
       }
       #prev, #playpause, #next, #shuffle, #repeat, #add {
         background-size: cover;
@@ -80,8 +83,22 @@
         left: 174px;
       }
       #add {
-        background-image: url('icons/white-plus-2-48.png');
         left: 5px;
+        top: 6px;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 1px solid transparent;
+        background-image: url('icons/white-add.png');
+      }
+      #add.done {
+        background-image: url('icons/white-check.png');
+        border-color: #84bd00;
+        background-size: 25px;
+      }
+      #add.done:hover {
+        background-image: url('icons/white-clear.png');
+        border-color: #eee;
       }
       #shuffle, #repeat {
         background-size: 20px 20px;
