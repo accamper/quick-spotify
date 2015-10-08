@@ -42,18 +42,24 @@ Quickify.broadcast = function() {
   var statusMsg = {};
   statusMsg.type = QuickifyMessages.STATUS;
 
-  var trackNameDiv = Quickify.getById('track-name');
+  var trackNameDiv = Quickify.getById('track-name') ||
+    Quickify.getBetaInfoByClass('track');
   var trackArtistDiv = Quickify.getById('track-artist');
+    Quickify.getBetaInfoByClass('artist');
   var trackLengthDiv = Quickify.getById('track-length');
-  var trackCurrentDiv = Quickify.getById('track-current');
+  var trackCurrentDiv = Quickify.getById('track-current') ||
+    Quickify.getById('elapsed');
+  var trackRemainingDiv = Quickify.getById('remaining');
   var trackAddDiv = Quickify.getById('track-add');
-  var playPauseDiv = Quickify.getById('play-pause');
+  var playPauseDiv = Quickify.getById('play-pause') ||
+    Quickify.getById('play');
   var shuffleDiv = Quickify.getById('shuffle');
   var repeatDiv = Quickify.getById('repeat');
 
   statusMsg.song = trackNameDiv.textContent;
   statusMsg.artist = trackArtistDiv.textContent;
-  statusMsg.songLength = trackLengthDiv.textContent;
+  statusMsg.songLength = trackLengthDiv && trackLengthDiv.textContent;
+  statusMsg.remainingTime = trackRemainingDiv && trackRemainingDiv.textContent;
   statusMsg.currentTime = trackCurrentDiv.textContent;
   statusMsg.isPlaying = playPauseDiv.classList.contains('playing');
   statusMsg.isShuffled = shuffleDiv.classList.contains('active');
@@ -73,11 +79,21 @@ Quickify.resetAge = function() {
 };
 
 
+Quickify.getBetaInfoByClass = function(c) {
+  var appPlaya = document.getElementById('main');
+  var elt = appPlaya && appPlaya.contentDocument &&
+    appPlaya.contentDocument.querySelector('#view-now-playing .' + c + ' a');
+  return elt; 
+};
+
+
 Quickify.getById = function(id) {
   var appPlaya = document.getElementById('app-player');
   var elt = appPlaya && appPlaya.contentDocument.getElementById(id);
   if (!elt) {
-    Quickify.log('DID THEY CHANGE THE IDS???? SOMEONE TELL THE DEVELOPER!!!');
+    var appPlayaBeta = document.getElementById('main');
+    elt = appPlayaBeta && appPlayaBeta.contentDocument &&
+      appPlayaBeta.contentDocument.getElementById(id);
   }
   return elt; 
 };
@@ -85,7 +101,9 @@ Quickify.getById = function(id) {
 
 Quickify.playOrPause = function() {
   Quickify.log('play or pause');
-  Quickify.getById('play-pause').click();
+  var playPauseDiv = Quickify.getById('play-pause') ||
+    Quickify.getById('play');
+  playPauseDiv.click();
 };
 
 

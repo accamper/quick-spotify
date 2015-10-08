@@ -5,18 +5,26 @@ QuickifyPopup.handleStatus = function(request, sender, sendResponse) {
   if (request.type != QuickifyMessages.STATUS) return;
   QuickifyPopup.song.textContent = request.song;
   QuickifyPopup.artist.textContent = request.artist;
-  QuickifyPopup.setTime(request.currentTime, request.songLength);
   QuickifyPopup.playpauseBtn.classList.toggle('pause', request.isPlaying);
   QuickifyPopup.shuffleBtn.classList.toggle('on', request.isShuffled);
   QuickifyPopup.repeatBtn.classList.toggle('on', request.isRepeated);
   QuickifyPopup.addBtn.classList.toggle('done', request.isSaved);
-};
 
-QuickifyPopup.setTime = function(currentTime, songLength) {
-  QuickifyPopup.currentTime.textContent = currentTime;
-  QuickifyPopup.songLength.textContent = songLength;
+  // Calculate and display time differently for normal and beta players.
+  var percent = 0;
+  var cTime = parseTime(request.currentTime);
+  if (request.songLength) {
+    percent = cTime / parseTime(request.songLength);
+  } else if (request.remainingTime) {
+    percent = cTime / (cTime + parseTime(request.remainingTime));
+  }
+  QuickifyPopup.setTime(
+      request.currentTime,
+      request.songLength || request.remainingTime,
+      percent);
+
   // Parse time to set progress accordingly.
-  var parseTime = function(time) {
+  function parseTime(time) {
     var tArr = time.split(':');
     var secs = 0;
     var mult = 1;
@@ -26,8 +34,12 @@ QuickifyPopup.setTime = function(currentTime, songLength) {
     }
     return secs;
   };
-  var fullWidth = 280;
-  var newWidth = (parseTime(currentTime) / parseTime(songLength)) * fullWidth;
+};
+
+QuickifyPopup.setTime = function(currentTime, songLength, percent) {
+  QuickifyPopup.currentTime.textContent = currentTime;
+  QuickifyPopup.songLength.textContent = songLength;
+  var newWidth = percent * 280;
   QuickifyPopup.timeProgress.style.width = Math.round(newWidth) + 'px';
   // TODO handle be able to drag/drop time.
 };

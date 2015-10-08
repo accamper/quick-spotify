@@ -10,7 +10,10 @@ var QuickifyMessages = {
   STATUS: 'q status'
 };
 
-var QuickifyUrl = 'https://play.spotify.com/*';
+var QuickifyUrl = [
+    'https://play.spotify.com/*',
+    'https://player.spotify.com/*'
+    ];
 
 var QuickifySendToContent = function(msg) {
   chrome.tabs.query({url: QuickifyUrl},
