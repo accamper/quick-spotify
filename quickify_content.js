@@ -1,4 +1,5 @@
 window.console.log('this is content, quality content');
+
 var Quickify = {};
 
 // Whether we are broadcasting.
@@ -12,7 +13,6 @@ Quickify.age = 0;
 
 // Interval time in ms.
 Quickify.interval = 400;
-
 
 Quickify.setIdle = function(idle) {
   if (idle == Quickify.isIdle) return;
@@ -42,117 +42,85 @@ Quickify.broadcast = function() {
   var statusMsg = {};
   statusMsg.type = QuickifyMessages.STATUS;
 
-  var trackNameDiv = Quickify.getById('track-name') ||
-    Quickify.getBetaInfoByClass('track');
-  var trackArtistDiv = Quickify.getById('track-artist');
-    Quickify.getBetaInfoByClass('artist');
-  var trackLengthDiv = Quickify.getById('track-length');
-  var trackCurrentDiv = Quickify.getById('track-current') ||
-    Quickify.getById('elapsed');
-  var trackRemainingDiv = Quickify.getById('remaining');
-  var trackAddDiv = Quickify.getById('track-add');
-  var playPauseDiv = Quickify.getById('play-pause') ||
-    Quickify.getById('play');
-  var shuffleDiv = Quickify.getById('shuffle');
-  var repeatDiv = Quickify.getById('repeat');
+  var trackNameDiv = document.querySelector(".now-playing-bar div div [href*='/album/']");
+  var trackArtistDiv = document.querySelector(".now-playing-bar div div [href*='/artist/']");
+  var trackCurrentDiv = document.querySelector(".playback-bar__progress-time");
+  var trackLengthDiv = document.querySelectorAll(".playback-bar__progress-time")[1];  
+  // var trackRemainingDiv = Quickify.getById('remaining');
+  var shuffleDiv = document.querySelector(".spoticon-shuffle-16");
+  var repeatDiv = document.querySelector(".spoticon-repeat-16");
 
-  statusMsg.song = trackNameDiv.textContent;
+  statusMsg.song = trackNameDiv.textContent;  
   statusMsg.artist = trackArtistDiv.textContent;
-  statusMsg.songLength = trackLengthDiv && trackLengthDiv.textContent;
-  statusMsg.remainingTime = trackRemainingDiv && trackRemainingDiv.textContent;
+  statusMsg.songLength = trackLengthDiv.textContent;
+  // statusMsg.remainingTime = trackRemainingDiv && trackRemainingDiv.textContent;
   statusMsg.currentTime = trackCurrentDiv.textContent;
-  statusMsg.isPlaying = playPauseDiv.classList.contains('playing');
-  statusMsg.isShuffled = shuffleDiv.classList.contains('active');
-  statusMsg.isRepeated = repeatDiv.classList.contains('active');
-  statusMsg.isSaved = trackAddDiv.classList.contains('added');
+  statusMsg.isPlaying = (document.querySelector(".spoticon-pause-16")) ? true : false;
+  statusMsg.isShuffled = shuffleDiv.classList.contains("control-button--active");  
+  statusMsg.isRepeated = repeatDiv.classList.contains("control-button--active");
+  statusMsg.isSaved = (document.querySelector(".spoticon-added-16")) ? true : false;
 
   chrome.runtime.sendMessage(statusMsg);
 };
 
 
 Quickify.log = function(msg) {
+
   window.console.log('[Quickify] ' + msg);
 };
+
 
 Quickify.resetAge = function() {
   Quickify.age = 0;
 };
 
 
-Quickify.getBetaInfoByClass = function(c) {
-  var appPlaya = document.getElementById('main');
-  var elt = appPlaya && appPlaya.contentDocument &&
-    appPlaya.contentDocument.querySelector('#view-now-playing .' + c + ' a');
-  return elt; 
-};
-
-
-Quickify.getById = function(id) {
-  var appPlaya = document.getElementById('app-player');
-  var elt = appPlaya && appPlaya.contentDocument.getElementById(id);
-  if (!elt) {
-    var appPlayaBeta = document.getElementById('main');
-    elt = appPlayaBeta && appPlayaBeta.contentDocument &&
-      appPlayaBeta.contentDocument.getElementById(id);
-  }
-  return elt; 
-};
-
-
 Quickify.playOrPause = function() {
-  Quickify.log('play or pause');
-  var playPauseDiv = Quickify.getById('play-pause') ||
-    Quickify.getById('play');
-  playPauseDiv.click();
+  (document.querySelector(".spoticon-play-16") || document.querySelector(".spoticon-pause-16")).click()
 };
 
 
 Quickify.next = function() {
-  Quickify.log('next');
-  Quickify.getById('next').click();
+  document.querySelector(".spoticon-skip-forward-16").click();
 };
 
 
 Quickify.previous = function() {
-  Quickify.log('previous');
-  Quickify.getById('previous').click();
+  document.querySelector(".spoticon-skip-back-16").click();
 };
 
 
 Quickify.save = function() {
-  Quickify.log('save');
-  Quickify.getById('track-add').click();
+  (document.querySelector(".spoticon-add-16") || document.querySelector(".spoticon-added-16")).click();
 };
 
 
 Quickify.repeat = function() {
-  Quickify.log('repeat');
-  Quickify.getById('repeat').click();
+  document.querySelector(".spoticon-repeat-16").click();
 };
 
 
 Quickify.shuffle  = function() {
-  Quickify.log('shuffle');
-  Quickify.getById('shuffle').click();
+  document.querySelector(".spoticon-shuffle-16").click();
 };
 
 
 Quickify.init = function() {
   // Setup listeners.
-  chrome.runtime.onMessage.addListener(
+  chrome.runtime.onMessage.addListener(  
       function(request, sender, sendResponse) {
         switch (request) {
           case QuickifyMessages.POPUP_ON:
             Quickify.setIdle(false);
             break;
           case QuickifyMessages.POPUP_OFF:
-            Quickify.setIdle(true);
+            //Quickify.setIdle(true);
             return;
           case QuickifyMessages.PLAY_OR_PAUSE:
             Quickify.playOrPause();
             break;
           case QuickifyMessages.NEXT:
-            Quickify.next();
+			Quickify.next();
             break;
           case QuickifyMessages.PREVIOUS:
             Quickify.previous();
@@ -166,7 +134,7 @@ Quickify.init = function() {
           case QuickifyMessages.SHUFFLE:
             Quickify.shuffle();
             break;
-          default:
+          default:			
             Quickify.log("I don't know how to handle this message: " + request);
             return;
         }
