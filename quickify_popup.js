@@ -1,8 +1,8 @@
 window.console.log('This is popping!');
 QuickifyPopup = {};
 
-QuickifyPopup.handleStatus = function(request, sender, sendResponse) {
-  if (request.type != QuickifyMessages.STATUS) return;
+QuickifyPopup.handleStatus = function(request, sender, sendResponse) {  
+  if (request.type != QuickifyMessages.STATUS) return;  
   QuickifyPopup.song.textContent = request.song;
   QuickifyPopup.artist.textContent = request.artist;
   QuickifyPopup.playpauseBtn.classList.toggle('pause', request.isPlaying);
@@ -44,9 +44,13 @@ QuickifyPopup.setTime = function(currentTime, songLength, percent) {
   // TODO handle be able to drag/drop time.
 };
 
-
+QuickifyPopup.log = function(msg)
+{
+	window.console.log(msg);
+}
 
 QuickifyPopup.init = function() {
+  QuickifyPopup.log('init');
   QuickifyPopup.song = document.getElementById('song');
   QuickifyPopup.artist = document.getElementById('artist');
   QuickifyPopup.prevBtn = document.getElementById('prev');
@@ -60,13 +64,14 @@ QuickifyPopup.init = function() {
   QuickifyPopup.songLength = document.getElementById('end');
   QuickifyPopup.openLinkBtn = document.getElementById('link');
   
-  // Add listeners for buttons.
+  // Add listeners for buttons.  
   QuickifyPopup.prevBtn.addEventListener('click', function() {
     QuickifySendToContent(QuickifyMessages.PREVIOUS);
   });
   QuickifyPopup.nextBtn.addEventListener('click', function() {
     QuickifySendToContent(QuickifyMessages.NEXT);
   });
+  
   QuickifyPopup.playpauseBtn.addEventListener('click', function() {
     QuickifySendToContent(QuickifyMessages.PLAY_OR_PAUSE);
   });
@@ -87,12 +92,13 @@ QuickifyPopup.init = function() {
         }
       });
   });
-
+  
   // Set up update listener.
   chrome.runtime.onMessage.addListener(QuickifyPopup.handleStatus);
 
   // Notify content we have started.
   QuickifySendToContent(QuickifyMessages.POPUP_ON);
+    
 };
 
 QuickifyPopup.exit = function() {

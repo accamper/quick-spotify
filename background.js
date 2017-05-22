@@ -1,13 +1,13 @@
 window.console.log('What is noise? Is it background music?');
 // On install make sure to refresh all spotify pages. 
 chrome.runtime.onInstalled.addListener(function(details) {
-  chrome.tabs.query({url: QuickifyUrl},
+  chrome.tabs.query({url: QuickifyUrl},  
     function(tabs) {
-      // Refresh spotify tabs.
+	  // Refresh spotify tabs.
       for (var i = 0; i < tabs.length; i++) {
         chrome.tabs.reload(tabs[i].id);
       };
-    });
+    });	
 });
 // This page is only needed for the chrome.commands.
 chrome.commands.onCommand.addListener(function(command) {
@@ -38,4 +38,3 @@ chrome.commands.onCommand.addListener(function(command) {
   
   QuickifySendToContent(msg);
 });
-

@@ -12,7 +12,8 @@ var QuickifyMessages = {
 
 var QuickifyUrl = [
     'https://play.spotify.com/*',
-    'https://player.spotify.com/*'
+    'https://player.spotify.com/*',
+	'https://open.spotify.com/*'
     ];
 
 var QuickifySendToContent = function(msg) {
